@@ -1,0 +1,76 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+const Hero = () => {
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section className="py-20">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="px-3 py-1 text-sm font-medium bg-primary/10 text-primary rounded-full inline-block mb-2">
+              Machine Learning Enthusiast
+            </span>
+          </motion.div>
+          
+          <motion.h1 
+            className="text-3xl md:text-4xl font-bold mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Hi, I'm <span className="text-gradient">Akinepelli Saiteja</span>
+          </motion.h1>
+          
+          <motion.p 
+            className="text-foreground/80 text-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            An aspiring Machine Learning student passionate about solving complex problems with data-driven solutions. Currently pursuing my Masters in Computer Applications at Vaageswari College of Engineering.
+          </motion.p>
+          
+          <motion.div 
+            className="flex flex-col sm:flex-row gap-4 pt-6 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Button size="lg" asChild>
+              <a href="/contact">Get In Touch</a>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <a href="/resume">View Resume</a>
+            </Button>
+          </motion.div>
+        </div>
+        
+        <div className="flex justify-center mt-16">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={scrollToAbout}
+            className="rounded-full h-12 w-12 animate-bounce"
+          >
+            <ChevronDown />
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
