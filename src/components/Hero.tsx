@@ -42,17 +42,8 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             Hi, I'm{' '}
-            <span className="relative z-20">
-              <SplitText 
-                text="Akinepelli Saiteja"
-                className="text-gradient inline font-bold drop-shadow-lg"
-                delay={50}
-                duration={0.8}
-                splitType="chars"
-                from={{ opacity: 0, y: 50, rotateX: -90 }}
-                to={{ opacity: 1, y: 0, rotateX: 0 }}
-                threshold={0.8}
-              />
+            <span className="text-gradient font-bold drop-shadow-lg">
+              Saiteja Akinepelli
             </span>
           </motion.h1>
           
