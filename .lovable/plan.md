@@ -1,95 +1,44 @@
 
-# Plan: Replace All Profile Images Globally
 
-## Overview
-This plan will replace your existing profile image (`saiteja-profile.jpg`) with your newly uploaded photo across all sections of the website, maintaining proper alt text "Saiteja Akinepelli" and preserving existing styling and accessibility attributes.
+# Fix Profile Image - Use Direct GitHub URL
 
----
+## Problem Identified
+The screenshot shows a stock/placeholder image is being rendered instead of your actual profile photo. Both the About component (`src/components/About.tsx`) and the About page (`src/pages/About.tsx`) import from `src/assets/saiteja-profile.jpg`, but this local file appears to have been corrupted or replaced with a stock image.
 
-## Profile Image Locations Identified
+## Solution
+Replace the local asset import with the direct GitHub raw URL in both files. This ensures:
+- The correct image is always displayed
+- No future accidental replacements can occur
+- The image source is permanent and reliable
 
-I found profile images in the following locations:
+## Files to Modify
 
-| File | Line | Current Usage |
-|------|------|---------------|
-| `src/components/About.tsx` | 6, 89-92 | Imports and displays profile image in About section on homepage |
-| `src/pages/About.tsx` | 8, 91-94 | Imports and displays profile image on /about page |
-| `src/components/Contact.tsx` | 5 | Imports profile image (currently unused in component) |
+### 1. src/components/About.tsx (About Me section on homepage)
+- Remove the import statement for `profileImage` from local assets
+- Use the direct GitHub URL as the image source
 
-**Note:** No CSS `background-image` profile images were found. No other profile/avatar images exist in the codebase.
+### 2. src/pages/About.tsx (Dedicated About page)
+- Remove the import statement for `profileImage` from local assets
+- Use the direct GitHub URL as the image source
 
----
+## Technical Details
 
-## Implementation Steps
-
-### Step 1: Copy New Profile Photo to Project Assets
-
-**Action:** Copy the uploaded image to replace the existing profile photo
-
+**GitHub Raw Image URL:**
 ```
-Source: user-uploads://saiteja_photo-3.jpg
-Destination: src/assets/saiteja-profile.jpg
+https://raw.githubusercontent.com/Saiteja1807200/Assets/main/profile.jpg
 ```
 
-This will overwrite the existing file, so all components already importing from this path will automatically use the new image.
+**Changes in src/components/About.tsx:**
+- Line 6: Remove `import profileImage from '@/assets/saiteja-profile.jpg';`
+- Line 90: Change `src={profileImage}` to `src="https://raw.githubusercontent.com/Saiteja1807200/Assets/main/profile.jpg"`
 
-### Step 2: Verify Image References (No Code Changes Required)
+**Changes in src/pages/About.tsx:**
+- Line 8: Remove `import profileImage from '@/assets/saiteja-profile.jpg';`
+- Line 92: Change `src={profileImage}` to `src="https://raw.githubusercontent.com/Saiteja1807200/Assets/main/profile.jpg"`
 
-Since all components already import from `@/assets/saiteja-profile.jpg`, no code changes are needed. The import statements are already correct:
+## Benefits
+- Permanent, unchangeable image source
+- No dependency on local asset files
+- Consistent image across all sections
+- Prevents future accidental replacements or "improvements"
 
-**src/components/About.tsx (line 6):**
-```tsx
-import profileImage from '@/assets/saiteja-profile.jpg';
-```
-
-**src/pages/About.tsx (line 8):**
-```tsx
-import profileImage from '@/assets/saiteja-profile.jpg';
-```
-
-**src/components/Contact.tsx (line 5):**
-```tsx
-import profileImage from '@/assets/saiteja-profile.jpg';
-```
-
-### Step 3: Verify Alt Text (Already Correct)
-
-Both image elements already have the proper alt text:
-
-**src/components/About.tsx (line 91):**
-```tsx
-alt="Saiteja Akinepelli"
-```
-
-**src/pages/About.tsx (line 93):**
-```tsx
-alt="Saiteja Akinepelli"
-```
-
----
-
-## What Will Be Preserved
-
-- Original image dimensions and aspect ratios
-- Responsive behavior (`object-cover`, `aspect-[4/5]`)
-- CSS styling and effects (gradient overlays, shadows)
-- Accessibility attributes (alt text)
-- Framer Motion animations
-- Layout structure
-
----
-
-## Files to be Modified
-
-| File | Action |
-|------|--------|
-| `src/assets/saiteja-profile.jpg` | Replace with new uploaded photo |
-
----
-
-## Technical Notes
-
-- The existing `.jpg` filename will be used (not `.png`) to maintain compatibility with current imports
-- No code changes are required since all imports already point to the correct asset path
-- The new image will be bundled and optimized by Vite during build
-- All three files that import the profile image will automatically use the new photo once the asset is replaced
